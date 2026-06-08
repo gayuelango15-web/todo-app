@@ -1,0 +1,128 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.container{
+    width:100%;
+    max-width:900px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    color:#333;
+    margin-bottom:25px;
+    font-size:32px;
+}
+
+input{
+    padding:12px 15px;
+    border:2px solid #ddd;
+    border-radius:10px;
+    outline:none;
+    transition:0.3s;
+}
+
+input:focus{
+    border-color:#667eea;
+}
+
+#task{
+    width:70%;
+}
+
+#search{
+    width:100%;
+    margin-bottom:20px;
+}
+
+button{
+    padding:12px 18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+button:first-of-type{
+    background:#667eea;
+    color:white;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    overflow:hidden;
+    border-radius:15px;
+}
+
+thead{
+    background:#667eea;
+    color:white;
+}
+
+th,td{
+    padding:15px;
+    text-align:center;
+}
+
+tbody tr:nth-child(even){
+    background:#f8f9ff;
+}
+
+tbody tr:hover{
+    background:#eef1ff;
+}
+
+td button:first-child{
+    background:#22c55e;
+    color:white;
+}
+
+td button:last-child{
+    background:#ef4444;
+    color:white;
+}
+
+h3{
+    margin-top:20px;
+    color:#333;
+}
+
+#completed{
+    color:#22c55e;
+}
+
+#pending{
+    color:#ef4444;
+}
+
+.clear-btn{
+    width:100%;
+    margin-top:20px;
+    background:#111827;
+    color:white;
+    padding:15px;
+    font-size:16px;
+}

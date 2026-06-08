@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo-App</title>
+    <link rel="stylesheet" href="todo.css">
+</head>
+<body>
+    <div class="container">
+
+        <h2>To-Do App</h2>
+
+        <input type="text" id="task" placeholder="Enter Task">
+        <button onclick="addTask()">Add Task</button>
+        
+        <br><br>
+
+        <input type="text" id="search" oninput="searchTask()" placeholder="Search Task">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-item">
+
+            </tbody>
+        </table>
+        <h3 id="completed">Completed:0</h3>
+        <h3 id="pending">Pending: 0</h3>
+
+        <button onclick="clearAll()">Clear All</button>
+    </div>
+   
+    <script>
+        function addTask() {
+            let task = document.getElementById("task").value;
+
+            if (task === '') {
+                alert("Enter a task:");
+                return;
+            }
+            tasks.push({
+                task: task,
+                completed: false
+            });
+            localStorage.setItem('tasks', JSON.stringify(tasks))
+            console.log(tasks);
+            taskStore();
+            document.getElementById('task').value = ''
+        }
+        
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        taskStore()
+        
+        function taskStore(displayTasks = tasks){
+            let tbody = document.getElementById("tbody-item")
+            tbody.innerHTML = ''
+            displayTasks.forEach((item, index) => {
+                let row = document.createElement('tr')
+                let status = "Pending";
+
+                if(item.completed === true){
+                    status = 'Completed'
+                }
+
+                row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${item.task}</td>
+                <td>${status}</td>
+                <td><button onclick='completeTask(${index})'>Complete</button></td>
+                <td><button onclick='deleteTask(${index})'>Delete</button></td>
+                `
+                tbody.append(row)
+                console.log(row)
+            })
+            //completed count
+            let completedTask = tasks.filter(item => {
+                return item.completed === true
+            })
+            let completedCount = document.getElementById("completed")
+            completedCount.textContent = "CompletedTask:" + completedTask.length
+
+            //pending count
+            let pendingTask = tasks.filter(item => {
+                return item.completed === false
+            })
+            let pendingCount = document.getElementById("pending")
+            pendingCount.textContent = "Pending Task:" + pendingTask.length
+        }
+
+        function completeTask(index) {
+            tasks[index].completed = !tasks[index].completed;
+            localStorage.setItem('tasks', JSON.stringify(tasks))
+            taskStore();
+        }
+
+        function deleteTask(index) {
+            tasks.splice(index, 1)
+            localStorage.setItem('tasks', JSON.stringify(tasks))
+            taskStore()
+        }
+
+        function searchTask() {
+            let search = document.getElementById('search').value.toLowerCase()
+
+            let searchTask = tasks.filter(item => {
+                return item.task.toLowerCase().includes(search);
+            })
+            if (search === '') {
+                taskStore()
+                return;
+            }
+            
+            taskStore(searchTask)
+        }
+
+        function clearAll() {
+            let clear = confirm('Are you sure?')
+
+            if(clear){
+                tasks = []
+                localStorage.removeItem('tasks')
+                taskStore();
+                return;
+            }
+        }
+
+    </script>
+</body>
+</html>
